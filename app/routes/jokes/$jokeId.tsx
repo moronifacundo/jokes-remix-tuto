@@ -8,16 +8,11 @@ import { db } from "~/utils/db.server";
 type LoaderData = { joke: Joke };
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const joke = await db.joke.findUnique(
-    //   {
-    //   where: { id: params.jokeId },
-    // }
-    {
-      where: {
-        id: params.jokeId,
-      },
-    }
-  );
+  const joke = await db.joke.findUnique({
+    where: {
+      id: params.jokeId,
+    },
+  });
   if (!joke) throw new Error("Joke not found");
   const data: LoaderData = { joke };
   return json(data);
